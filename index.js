@@ -14,6 +14,7 @@ app.get('/', (req, res) => {
 app.post('/recommend-parks', async (req, res) => {
   try {
     const userLocation = req.body.location;
+<<<<<<< HEAD
     console.log(`Received location: ${userLocation}`);
 
     // Ensure the location is properly formatted (latitude,longitude)
@@ -43,10 +44,41 @@ app.post('/recommend-parks', async (req, res) => {
   } catch (error) {
     console.error('Error occurred:', error.message);
     console.error('Error stack:', error.stack);
+=======
+
+    // Replace with actual Gemini API request
+    const geminiResponse = await axios.get(`https://gemini-api-endpoint.com/parks?location=${userLocation}`, {
+      headers: {
+        'Authorization': `Bearer YOUR_GEMINI_API_KEY`
+      }
+    });
+
+    const parks = geminiResponse.data;
+
+    // Replace with actual ChatGPT API request
+    const chatGptResponse = await axios.post('https://api.openai.com/v1/engines/davinci-codex/completions', {
+      prompt: `Recommend activities for the following parks: ${JSON.stringify(parks)}`,
+      max_tokens: 100,
+    }, {
+      headers: {
+        'Authorization': `Bearer YOUR_CHATGPT_API_KEY`
+      }
+    });
+
+    const recommendations = chatGptResponse.data.choices[0].text;
+
+    res.json({ parks, recommendations });
+  } catch (error) {
+    console.error(error);
+>>>>>>> 11a9fff922c5aed6f53c65f91d5b7c34ce346a6c
     res.status(500).send('Internal Server Error');
   }
 });
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 11a9fff922c5aed6f53c65f91d5b7c34ce346a6c
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
