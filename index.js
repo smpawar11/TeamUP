@@ -1,15 +1,7 @@
 const express = require('express');
 const axios = require('axios');
-const dotenv = require('dotenv');
-
-// Load environment variables from .env file
-dotenv.config();
-
 const app = express();
-const port = process.env.PORT || 3008;
-const cors = require('cors');
-app.use(cors());
-
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(express.static('public'));
@@ -22,59 +14,71 @@ app.get('/', (req, res) => {
 app.post('/recommend-parks', async (req, res) => {
   try {
     const userLocation = req.body.location;
+<<<<<<< HEAD
     console.log(`Received location: ${userLocation}`);
 
-    const geocodeResponse = await axios.get('https://maps.googleapis.com/maps/api/geocode/json', {
-      params: {
-        address: userLocation,
-        key: process.env.GOOGLE_MAPS_API_KEY,
-      },
-    });
-
-    if (!geocodeResponse.data.results.length) {
-      throw new Error('Could not find location');
+    // Ensure the location is properly formatted (latitude,longitude)
+    if (!userLocation || !userLocation.includes(',')) {
+      throw new Error('Invalid location format. Expected format: "latitude,longitude"');
     }
 
-    const coordinates = geocodeResponse.data.results[0].geometry.location;
-    console.log(`Coordinates for ${userLocation}: ${coordinates.lat},${coordinates.lng}`);
-
-    const placesResponse = await axios.get('https://maps.googleapis.com/maps/api/place/nearbysearch/json', {
+    // Google Places API request
+    const geminiResponse = await axios.get(`https://maps.googleapis.com/maps/api/place/nearbysearch/json`, {
       params: {
-        location: `${coordinates.lat},${coordinates.lng}`,
+        location: userLocation,
         radius: 1500,
         type: 'park',
-        key: process.env.GOOGLE_MAPS_API_KEY,
-      },
+        key: 'AIzaSyBQata7o2DNHjCy-KXO9u2Pn0xc2xyjLJo' // Replace with your actual API key
+      }
     });
+    console.log('Google Places API response received', geminiResponse.data);
 
-    console.log('Places API response data:', placesResponse.data);
+    if (geminiResponse.data.status !== 'OK') {
+      throw new Error(geminiResponse.data.error_message);
+    }
 
-    const parks = placesResponse.data.results.map((park) => {
-      const photoReference = park.photos ? park.photos[0].photo_reference : null;
-      const photoUrl = photoReference
-        ? `https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=${photoReference}&key=${process.env.GOOGLE_MAPS_API_KEY}`
-        : null;
+    const parks = geminiResponse.data.results;
 
-      return {
-        name: park.name,
-        vicinity: park.vicinity,
-        rating: park.rating,
-        photoUrl: photoUrl,
-        opening_hours: park.opening_hours?.open_now ? "Open" : "Closed",
-        user_ratings_total: park.user_ratings_total,
-        placeId: park.place_id,
-      };
-    });
-
-    console.log('Processed parks data:', parks);
-
+    // Return the park recommendations
     res.json({ parks });
   } catch (error) {
     console.error('Error occurred:', error.message);
+    console.error('Error stack:', error.stack);
+=======
+
+    // Replace with actual Gemini API request
+    const geminiResponse = await axios.get(`https://gemini-api-endpoint.com/parks?location=${userLocation}`, {
+      headers: {
+        'Authorization': `Bearer YOUR_GEMINI_API_KEY`
+      }
+    });
+
+    const parks = geminiResponse.data;
+
+    // Replace with actual ChatGPT API request
+    const chatGptResponse = await axios.post('https://api.openai.com/v1/engines/davinci-codex/completions', {
+      prompt: `Recommend activities for the following parks: ${JSON.stringify(parks)}`,
+      max_tokens: 100,
+    }, {
+      headers: {
+        'Authorization': `Bearer YOUR_CHATGPT_API_KEY`
+      }
+    });
+
+    const recommendations = chatGptResponse.data.choices[0].text;
+
+    res.json({ parks, recommendations });
+  } catch (error) {
+    console.error(error);
+>>>>>>> 11a9fff922c5aed6f53c65f91d5b7c34ce346a6c
     res.status(500).send('Internal Server Error');
   }
 });
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 11a9fff922c5aed6f53c65f91d5b7c34ce346a6c
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
