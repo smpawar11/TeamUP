@@ -1,0 +1,209 @@
+/* Global Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+/* Navbar */
+.navbar {
+    background-color: #008000; /* Dark Green */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.navbar-brand, .nav-link {
+    color: white !important;
+}
+
+.navbar-nav .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+/* Hero Section */
+.bg-image {
+    background-position: center;
+    background-size: cover;
+    position: relative;
+}
+
+.bg-image .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6); /* Increased opacity */
+}
+
+header h1 {
+    font-size: 4rem; /* Larger heading */
+    margin-bottom: 1.5rem;
+    color: #ffffff; /* White color for better contrast */
+}
+
+header p {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: #ffffff; /* White color for better contrast */
+}
+
+#search-form {
+    max-width: 600px; /* Wider form */
+    margin: 0 auto;
+}
+
+#location-input {
+    font-size: 1.2rem; /* Larger input text */
+}
+
+#search-form button {
+    background-color: #007bff; /* Bootstrap primary color */
+    font-size: 1.2rem;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+#search-form button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Park Cards */
+#results .card {
+    border: none;
+    transition: transform 0.3s ease-in-out;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+#results .card:hover {
+    transform: scale(1.05);
+}
+
+#results .card img {
+    height: 200px;
+    object-fit: cover;
+    border-radius: 0.25rem 0.25rem 0 0;
+}
+
+/* Footer */
+footer {
+    background-color: #008000; /* Dark Green */
+    color: #fff;
+    font-size: 0.875rem;
+    padding: 20px 0;
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 2.5rem;
+    }
+
+    header p {
+        font-size: 1.2rem;
+    }
+
+    #search-form {
+        max-width: 90%;
+    }
+}
+
+/* Smooth scroll for in-page links */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Animations */
+.park-card {
+    transition: transform 0.3s ease-in-out;
+}
+
+.park-card:hover {
+    transform: scale(1.05); /* Slight zoom on hover */
+}
+/* Explore Parks Section */
+#explore-parks {
+    font-size: 1.5rem;
+    color: #008000; /* Match with the theme's green color */
+    text-align: center;
+    margin-top: 20px;
+}
+.carousel-item img {
+    width: 100%; 
+    height: auto;
+    max-height: 600px; /* Limit the height to avoid overly tall images */
+    object-fit: cover; /* This will make sure the image covers the container without distorting the aspect ratio */
+}
+
+
+
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.carousel-caption h5 {
+    font-size: 1.5rem;
+    color: #ffffff;
+}
+
+.carousel-caption p {
+    font-size: 1rem;
+    color: #ffffff;
+}
+
+
+/* Footer */
+footer {
+    background-color: #004d00; /* Darker Green for Footer */
+    color: #e6ffe6; /* Slightly lighter text for better contrast */
+    font-size: 0.875rem;
+    padding: 20px 0;
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: #e6ffe6; /* Consistent text color */
+}
+
+/* Additional Footer Styling for Consistency */
+footer a {
+    color: #ffffff; /* White color for links */
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+footer a:hover {
+    color: #b3ffb3; /* Light green on hover */
+}
+body {
+    font-family: Arial, sans-serif;
+}
+
+#parks-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.park {
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 200px;
+    text-align: center;
+}
+
+.park img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
